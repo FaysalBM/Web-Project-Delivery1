@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'web.apps.WebConfig', #Adding aplication created
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
