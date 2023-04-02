@@ -5,6 +5,6 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('',views.home, name='webProject Name'),
-    path('about/',views.about, name='About Us'),
+    path('',views.home, name='web-home'),
+    path('about/',views.about, name='web-about'),
 ]
