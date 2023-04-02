@@ -5,4 +5,3 @@ def home(request):
 
 def about(request):
     return render(request, 'web/about.html', {'title': 'About Us'})
-

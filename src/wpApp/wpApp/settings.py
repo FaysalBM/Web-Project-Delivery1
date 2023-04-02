@@ -57,7 +57,7 @@ ROOT_URLCONF = 'wpApp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,9 +69,11 @@ TEMPLATES = [
         },
     },
 ]
+SECRET_KEY = 'django-insecure-fiow+=4sfnfd!wxw$n)$dywf=jhm#isi88=7^!tb9m5uwmr3q1'
+DATABASE_URL='postgres://postgres:Faysal@postgres:5432/postgres'
 
 WSGI_APPLICATION = 'wpApp.wsgi.application'
-
+LOGIN_REDIRECT_URL = '/admin/'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
