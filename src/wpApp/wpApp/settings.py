@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import mimetypes
 
+mimetypes.add_type("text/css", ".css", True)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-croi-ja--19m+pq%n074#^gjr!s=q7ig7w=07!mq5)@4&vrq6a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -55,7 +57,7 @@ ROOT_URLCONF = 'wpApp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -67,9 +69,11 @@ TEMPLATES = [
         },
     },
 ]
+SECRET_KEY = 'django-insecure-fiow+=4sfnfd!wxw$n)$dywf=jhm#isi88=7^!tb9m5uwmr3q1'
+DATABASE_URL='postgres://postgres:Faysal@postgres:5432/postgres'
 
 WSGI_APPLICATION = 'wpApp.wsgi.application'
-
+LOGIN_REDIRECT_URL = '/admin/'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -117,7 +121,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
