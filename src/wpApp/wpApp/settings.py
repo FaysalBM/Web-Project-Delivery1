@@ -69,7 +69,7 @@ TEMPLATES = [
         },
     },
 ]
-SECRET_KEY = 'django-insecure-fiow+=4sfnfd!wxw$n)$dywf=jhm#isi88=7^!tb9m5uwmr3q1'
+
 DATABASE_URL='postgres://postgres:Faysal@postgres:5432/postgres'
 
 WSGI_APPLICATION = 'wpApp.wsgi.application'
