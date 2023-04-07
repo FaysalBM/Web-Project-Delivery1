@@ -30,6 +30,7 @@ class Company(models.Model):
     email_com = models.EmailField(max_length=255, unique=True, default='defaultEmail')
     num_workers = models.IntegerField(default=0)
     departments = models.ManyToManyField(Department)
+    workers = models.ManyToManyField(User)
     def __unicode__(self):
         return self.name
     
@@ -41,6 +42,7 @@ class User(AbstractBaseUser):
     projects = models.ManyToManyField(Project, related_name='projects', blank=True)
     groups_number = models.IntegerField()
     groups = models.ManyToManyField(Department, related_name='departments', blank=True)
+    company = models.ManyToOneRel(Company, field_name='company', to='Company')
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     def __unicode__(self):
