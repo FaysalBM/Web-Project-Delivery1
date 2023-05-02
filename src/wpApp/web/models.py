@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractBaseUser
-
+from django.urls import reverse
 User = get_user_model()
 
 class Task(models.Model):
@@ -12,6 +12,10 @@ class Task(models.Model):
 class Project(models.Model):
     name = models.CharField(max_length=256)
     tasks = models.ManyToManyField(Task)
+
+    def get_absolute_url(self):
+        return reverse('project-detail', kwargs={'pk': self.pk})
+    
     def __unicode__(self):
         return self.name
 

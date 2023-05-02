@@ -7,4 +7,5 @@ from django.urls import path, include
 urlpatterns = [
     path('',views.home, name='web-home'),
     path('about/',views.about, name='web-about'),
+    path('create_project/', views.create_project, name='create_project'),
 ]
