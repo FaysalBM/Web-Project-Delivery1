@@ -1,21 +1,21 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from wpApp.form import ProjectForm
-@login_required
-def create_project(request):
+from django.views.decorators.csrf import csrf_protect, csrf_exempt
+from .forms import CreateUserForm
+
+@csrf_exempt
+def registerPage(request):
+    form = CreateUserForm()
+
     if request.method == 'POST':
-        form = ProjectForm(request.POST)
+        form = CreateUserForm(request.POST)
         if form.is_valid():
-            project = form.save(commit=False)
-            project.save()
-            form.save_m2m()
-            return redirect('project_detail', pk=project.pk)
-    else:
-        form = ProjectForm()
-    return render(request, 'web/create_project.html', {'form': form})
+            form.save()
+
+    context = {'form':form}
+
+    return render(request, 'registration/register.html', context) 
 
 def home(request):
     return render(request, 'web/home.html')

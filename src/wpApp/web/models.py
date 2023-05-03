@@ -38,6 +38,8 @@ class Company(models.Model):
     def __unicode__(self):
         return self.name
     
+
+"""
 class User(AbstractBaseUser):
     id_user = models.CharField(max_length=255, primary_key=True)
     email_user = models.EmailField(max_length=255, unique=True, default='defaultUserMail')
@@ -51,3 +53,4 @@ class User(AbstractBaseUser):
     is_admin = models.BooleanField(default=False)
     def __unicode__(self):
         return self.name
+"""
