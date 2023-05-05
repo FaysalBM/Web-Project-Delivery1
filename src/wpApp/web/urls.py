@@ -13,5 +13,7 @@ urlpatterns = [
     path('logout/', views.logoutPage, name='logout_user'),
     path('company/<int:company_id>/', views.company_detail, name='company_detail'),
     path('department/<int:department_id>/', views.department_detail, name='department_detail'),
+    path('add_task/<int:project_id>/', views.add_task, name='add-task'),
+    path('delete_task/<int:task_id>/', views.delete_task, name='delete-task'),
+    path('departments/<int:department_id>/create_project/', views.create_project, name='create-project'),
 ]
-    #path('company/', views.companyData, name='company_data'),
