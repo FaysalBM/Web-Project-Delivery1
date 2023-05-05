@@ -6,7 +6,44 @@ from .forms import CreateUserForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
-from .models import Company, Department
+from django.http import JsonResponse
+from .models import Company, Department, Task, Project
+import json
+
+@csrf_exempt
+def create_project(request, department_id):
+    department = Department.objects.get(id=department_id)
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        project_name = data.get('name', '')
+        project = Project.objects.create(name=project_name)
+        department.projects.add(project)
+        return JsonResponse({'status': 'success'})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method.'})
+
+@csrf_exempt
+def add_task(request, project_id):
+    project = Project.objects.get(id=project_id)
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        task_name = data.get('name', '')
+        task = Task.objects.create(name=task_name)
+        project.tasks.add(task)
+        return JsonResponse({'status': 'success'})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method.'})
+    
+@csrf_exempt
+def delete_task(request, task_id):
+    task = Task.objects.get(id=task_id)
+    if request.method == 'POST':
+        task.delete()
+        return JsonResponse({'status': 'success'})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method.'})
+    
+
 @csrf_exempt
 def registerPage(request):
     form = CreateUserForm()

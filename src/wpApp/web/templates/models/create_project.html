@@ -1,0 +1,43 @@
+{% block content %}
+  <h1>Create Project</h1>
+  <form id="create-project-form">
+    {% csrf_token %}
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+    <br>
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" rows="5"></textarea>
+    <br>
+    <button type="submit">Create Project</button>
+  </form>
+
+  <script>
+    const createProjectForm = document.querySelector('#create-project-form');
+
+    createProjectForm.addEventListener('submit', event => {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+
+      fetch(`{% url 'create-project' department_id=department.id %}`, {
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': '{{ csrf_token }}',
+        },
+        body: formData,
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'success') {
+          // Reload the page to show the updated project list
+          location.reload();
+        } else {
+          alert('An error occurred while creating the project.');
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        alert('An error occurred while creating the project.');
+      });
+    });
+  </script>
+{% endblock %}

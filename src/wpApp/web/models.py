@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractBaseUser
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_protect, csrf_exempt
 User = get_user_model()
 
 class Task(models.Model):
