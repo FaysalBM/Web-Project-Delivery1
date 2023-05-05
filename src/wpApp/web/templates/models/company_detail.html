@@ -107,35 +107,21 @@
             </nav>
         </header>
         <div class="container">
-            <h1>Your Companies</h1>
-            <table>
-                <tbody>
-                    {% for company in companies %}
-                        <tr>
-                            <div style="width: 200;
-                            height: 200;
-                            background-color:grey;
-                            border-radius: 10px;
-                            border-color: black;
-                            border-style: solid;
-                            border-width: 3px;
-                            margin: 5px;
-                            padding: 20px;">
-                                <h5 style="color: white;"><b>Name: </b>{{ company.name }}</h5>
-                                <h5 style="color: white;"><b>Email: </b> {{ company.email_com }}</h5>
-                                <a href="{% url 'company_detail' company.id %}">
-                                    <button class="button-56" role="button">Enter</button>
-                                </a>
-                            </div>
-                        </tr>
-                    {% empty %}
-                        <tr>
-                            <td colspan="3">No companies found.</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-                
-            </table>
+            <h1>{{ company.name }}</h1>
+            <h5 style="color: white;"><b>Email: </b> {{ company.email_com }}</h5>
+            <p>Number of Workers: {{ company.num_workers }}</p>
+            <p>Email: {{ company.email_com }}</p>
+            <h2>Departments:</h2>
+            <ul>
+                {% for department in company.departments.all %}
+                    <li>{{ department.name }}</li>
+                    <a href="/department/{{ department.id }}">
+                        <button class="button-56" role="button">View Department</button>
+                    </a>
+                {% empty %}
+                    <li>No departments found.</li>
+                {% endfor %}
+            </ul>
         </div>
             <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

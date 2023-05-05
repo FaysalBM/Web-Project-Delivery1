@@ -11,4 +11,7 @@ urlpatterns = [
     path('register/', views.registerPage, name='register_user'),
     path('login/', views.loginPage, name='login_user'),
     path('logout/', views.logoutPage, name='logout_user'),
+    path('company/<int:company_id>/', views.company_detail, name='company_detail'),
+    path('department/<int:department_id>/', views.department_detail, name='department_detail'),
 ]
+    #path('company/', views.companyData, name='company_data'),
