@@ -9,4 +9,6 @@ urlpatterns = [
     path('about/',views.about, name='web-about'),
     path('create_project/', views.create_project, name='create_project'),
     path('register/', views.registerPage, name='register_user'),
+    path('login/', views.loginPage, name='login_user'),
+    path('logout/', views.logoutPage, name='logout_user'),
 ]
