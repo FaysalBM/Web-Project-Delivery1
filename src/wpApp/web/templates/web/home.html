@@ -15,11 +15,78 @@
             <title>Web project Web</title>
         {% endif %}
     </head>
+    <style>
+        .hello-msg{
+            font-size: 18px;
+            color: azure;
+            margin-right: 20px;
+            justify-self: center;
+            align-self: center;
+        }
+        .button-56 {
+        align-items: center;
+        background-color: #fee6e3;
+        border: 2px solid #111;
+        border-radius: 8px;
+        box-sizing: border-box;
+        color: #111;
+        cursor: pointer;
+        display: flex;
+        font-family: Inter,sans-serif;
+        font-size: 16px;
+        height: 48px;
+        justify-content: center;
+        line-height: 24px;
+        max-width: 100%;
+        padding: 0 25px;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        }
+
+        .button-56:after {
+        background-color: #111;
+        border-radius: 8px;
+        content: "";
+        display: block;
+        height: 48px;
+        left: 0;
+        width: 100%;
+        position: absolute;
+        top: -2px;
+        transform: translate(8px, 8px);
+        transition: transform .2s ease-out;
+        z-index: -1;
+        }
+
+        .button-56:hover:after {
+        transform: translate(0, 0);
+        }
+
+        .button-56:active {
+        background-color: #ffdeda;
+        outline: 0;
+        }
+
+        .button-56:hover {
+        outline: 0;
+        }
+
+        @media (min-width: 768px) {
+            .button-56 {
+                padding: 0 40px;
+            }
+        }
+    </style>
+    
     <body>
         <header class="site-header">
             <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
                 <div class="container">
-                    <a class="navbar-brand mr-4" href="/">Web Project Pràctica 1</a>
+                    <a class="navbar-brand mr-4" href="/">Basical</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -30,16 +97,43 @@
                         </div>
                         <!-- Navbar Right Side -->
                         <div class="navbar-nav">
-                            <a class="nav-item nav-link" href="/login">Login</a>
-                            <a class="nav-item nav-link" href="#">Register</a>
+                            <span class="hello-msg">Hello, {{request.user}}</span>
+                            <a href="/logout">
+                                <button class="button-56" role="button">Logout</button>
+                            </a>
                         </div>
                     </div>
                 </div>
             </nav>
         </header>
         <div class="container">
-            <h1>Welcome to our Web App!</h1>
-            <h2>This is our project!</h2>
+            <h1>Your Companies</h1>
+            <table>
+                <tbody>
+                    {% for company in companies %}
+                        <tr>
+                            <div style="width: 200;
+                            height: 200;
+                            background-color:grey;
+                            border-radius: 10px;
+                            border-color: black;
+                            border-style: solid;
+                            border-width: 3px;
+                            margin: 5px;
+                            padding: 20px;">
+                                <h5 style="color: white;"><b>Name: </b>{{ company.name }}</h5>
+                                <h5 style="color: white;"><b>Email: </b> {{ company.email_com }}</h5>
+                                <button class="button-56" role="button">Enter</button>
+                            </div>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="3">No companies found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                
+            </table>
         </div>
             <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

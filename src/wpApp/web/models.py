@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractBaseUser
-
+from django.urls import reverse
 User = get_user_model()
 
 class Task(models.Model):
@@ -12,6 +12,10 @@ class Task(models.Model):
 class Project(models.Model):
     name = models.CharField(max_length=256)
     tasks = models.ManyToManyField(Task)
+
+    def get_absolute_url(self):
+        return reverse('project-detail', kwargs={'pk': self.pk})
+    
     def __unicode__(self):
         return self.name
 
@@ -34,6 +38,8 @@ class Company(models.Model):
     def __unicode__(self):
         return self.name
     
+
+"""
 class User(AbstractBaseUser):
     id_user = models.CharField(max_length=255, primary_key=True)
     email_user = models.EmailField(max_length=255, unique=True, default='defaultUserMail')
@@ -47,3 +53,4 @@ class User(AbstractBaseUser):
     is_admin = models.BooleanField(default=False)
     def __unicode__(self):
         return self.name
+"""
