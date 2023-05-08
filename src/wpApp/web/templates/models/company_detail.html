@@ -112,13 +112,22 @@
             <h5 style="color: white;"><b>Email: </b> {{ company.email_com }}</h5>
             <p>Number of Workers: {{ company.num_workers }}</p>
             <p>Email: {{ company.email_com }}</p>
+            <h2>Add User:</h2>
+            <form method="POST" action="{% url 'add_user_to_company' company_id=company.id %}">
+                {% csrf_token %}
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <button type="submit">Add User</button>
+            </form>
             <h2>Departments:</h2>
             <ul>
                 {% for department in company.departments.all %}
-                    <li>{{ department.name }}</li>
-                    <a href="/department/{{ department.id }}">
-                        <button class="button-56" role="button">View Department</button>
-                    </a>
+                    {% if request.user in department.users.all %}
+                        <li>{{ department.name }}</li>
+                        <a href="/company/{{company.id}}/department/{{ department.id}}">
+                            <button class="button-56" role="button">View Department</button>
+                        </a>
+                    {% endif %}
                 {% empty %}
                     <li>No departments found.</li>
                 {% endfor %}
