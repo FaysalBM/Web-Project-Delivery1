@@ -136,6 +136,23 @@
                 </tbody>
                 
             </table>
+            <form method="POST" action="{% url 'create_company' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email_com">Email:</label>
+                    <input type="email" class="form-control" name="email_com" required>
+                </div>
+                <div class="form-group">
+                    <label for="num_workers">Number of Workers:</label>
+                    <input type="number" class="form-control" id="num_workers" name="num_workers" min="0" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Company</button>
+            </form>
+           
         </div>
             <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

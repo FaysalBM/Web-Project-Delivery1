@@ -18,4 +18,5 @@ urlpatterns = [
     path('create_department/<int:company_id>/', views.create_department, name='create-department'),
     path('department/<int:department_id>/add_users/', views.add_user_to_department, name='add_user_to_department'),
     path('company/<int:company_id>/add_user/', views.add_user_to_company, name='add_user_to_company'),
+    path('create_company/', views.create_company, name='create_company'),
 ]

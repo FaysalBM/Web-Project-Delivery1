@@ -11,6 +11,21 @@ from .models import Company, Department, Task, Project, User
 import json
 from django.db.models import Q
 
+@login_required
+def create_company(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email_com = request.POST.get('email_com', None)
+        num_workers = request.POST.get('num_workers')
+        if not email_com:
+            email_com = None
+        company = Company.objects.create(name=name, email_com=email_com, num_workers=num_workers)
+        company.workers.add(request.user)
+        messages.success(request, f'{name} has been created.')
+        return redirect('web-home')
+
+    return render(request, 'web/create_company.html')
+
 def add_user_to_company(request, company_id):
     company = get_object_or_404(Company, id=company_id)
 
