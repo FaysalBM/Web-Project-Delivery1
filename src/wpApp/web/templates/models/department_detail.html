@@ -128,6 +128,13 @@
                 {% empty %}
                     <p>No projects found for this department.</p>
                 {% endfor %}
+                {% block content %}
+                <h2>Create a New Project</h2>
+                <form class="add-project-form" data-department-id="{{ department.id }}">
+                    <input type="text" name="project-name" placeholder="Enter Project name">
+                    <button type="submit">Add Project</button>
+                </form>
+                {% endblock %}
                 {% block script %}
                 <script>
                     // Handle delete buttons
@@ -191,6 +198,41 @@
                                 });
                         });
                     });
+                    const addProjectForms = document.querySelectorAll('.add-project-form');
+                    addProjectForms.forEach(form => {
+                        form.addEventListener('submit', (event) => {
+                            event.preventDefault();
+                            const departmentId = form.dataset.departmentId;
+                            const projectNameInput = form.querySelector('[name="project-name"]');
+                            const projectName = projectNameInput.value;
+                            projectNameInput.value = '';
+
+                            fetch(`/create_project/${departmentId}/`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRFToken': '{{ csrf_token }}',
+                                },
+                                body: JSON.stringify({
+                                    'name': projectName,
+                                }),
+                            })
+                                .then(response => {
+                                    if (response.ok) {
+                                        // Reload the page to show updated project list
+                                        location.reload();
+                                    } else {
+                                        alert('An error occurred while adding the project.');
+                                    }
+                                })
+                                .catch(error => {
+                                    console.log(error);
+                                    alert('An error occurred while adding the project.');
+                                });
+                        });
+                    });
+
+
                 </script>
                 {% endblock %}
             </ul>
