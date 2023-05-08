@@ -11,8 +11,12 @@ urlpatterns = [
     path('login/', views.loginPage, name='login_user'),
     path('logout/', views.logoutPage, name='logout_user'),
     path('company/<int:company_id>/', views.company_detail, name='company_detail'),
-    path('department/<int:department_id>/', views.department_detail, name='department_detail'),
+    path('company/<int:company_id>/department/<int:department_id>/', views.department_detail, name='department_detail'),
     path('add_task/<int:project_id>/', views.add_task, name='add-task'),
     path('delete_task/<int:task_id>/', views.delete_task, name='delete-task'),
     path('create_project/<int:department_id>/', views.create_project, name='create-project'),
+    path('create_department/<int:company_id>/', views.create_department, name='create-department'),
+    path('department/<int:department_id>/add_users/', views.add_user_to_department, name='add_user_to_department'),
+    path('company/<int:company_id>/add_user/', views.add_user_to_company, name='add_user_to_company'),
+    path('create_company/', views.create_company, name='create_company'),
 ]

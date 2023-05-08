@@ -7,9 +7,74 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
-from .models import Company, Department, Task, Project
+from .models import Company, Department, Task, Project, User
 import json
+from django.db.models import Q
 
+@login_required
+def create_company(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email_com = request.POST.get('email_com', None)
+        num_workers = request.POST.get('num_workers')
+        if not email_com:
+            email_com = None
+        company = Company.objects.create(name=name, email_com=email_com, num_workers=num_workers)
+        company.workers.add(request.user)
+        messages.success(request, f'{name} has been created.')
+        return redirect('web-home')
+
+    return render(request, 'web/create_company.html')
+
+def add_user_to_company(request, company_id):
+    company = get_object_or_404(Company, id=company_id)
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        user = get_object_or_404(User, username=username)
+        if user in company.workers.all():
+            messages.warning(request, f'{username} is already a member of {company.name}.')
+        else:
+            company.workers.add(user)
+            messages.success(request, f'{username} has been added to {company.name}.')
+        return redirect('company_detail', company_id=company_id)
+
+    context = {
+        'company': company,
+    }
+    return render(request, 'company.html', context)
+
+@login_required
+def add_user_to_department(request, department_id):
+    department = get_object_or_404(Department, id=department_id)
+    company_id = Company.objects.filter(departments=department_id).first().id
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        user = get_object_or_404(User, username=username)
+        if user in department.users.all():
+            messages.warning(request, f'{username} is already a member of {department.name}.')
+        else:
+            department.users.add(user)
+            messages.success(request, f'{username} has been added to {department.name}.')
+        return redirect('department_detail', department_id=department_id, company_id=company_id)
+
+
+@csrf_exempt
+def create_department(request, company_id):
+    company = Company.objects.get(id=company_id)
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        department_name = data.get('name', '')
+        department = Department.objects.create(name=department_name)
+        company.departments.add(department)
+        user_id = request.user.id
+        user = User.objects.get(pk=user_id)
+        department.users.add(user)
+        return JsonResponse({'status': 'success'})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method.'})
+    
+@csrf_exempt
 def create_project(request, department_id):
     print("Request method:", request.method)
     department = Department.objects.get(id=department_id)
@@ -84,9 +149,10 @@ def company_detail(request, company_id):
     company = get_object_or_404(Company, pk=company_id)
     return render(request, 'models/company_detail.html', {'company': company})
 
-def department_detail(request, department_id):
+def department_detail(request, department_id, company_id):
     department = get_object_or_404(Department, pk=department_id)
-    return render(request, 'models/department_detail.html', {'department': department})
+    company = get_object_or_404(Company, pk=company_id)
+    return render(request, 'models/department_detail.html', {'department': department, 'company': company })
 
 def logoutPage(request):
     logout(request)
