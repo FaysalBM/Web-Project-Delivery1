@@ -10,6 +10,19 @@ from django.http import JsonResponse
 from .models import Company, Department, Task, Project
 import json
 
+@csrf_exempt
+def create_department(request, company_id):
+    company = Company.objects.get(id=company_id)
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        department_name = data.get('name', '')
+        department = Department.objects.create(name=department_name)
+        company.departments.add(department)
+        return JsonResponse({'status': 'success'})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method.'})
+    
+@csrf_exempt
 def create_project(request, department_id):
     print("Request method:", request.method)
     department = Department.objects.get(id=department_id)
