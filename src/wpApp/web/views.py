@@ -10,13 +10,16 @@ from django.http import JsonResponse
 from .models import Company, Department, Task, Project
 import json
 
-@csrf_exempt
 def create_project(request, department_id):
+    print("Request method:", request.method)
     department = Department.objects.get(id=department_id)
     if request.method == 'POST':
         data = json.loads(request.body)
+        print("Request data:", data)
         project_name = data.get('name', '')
         project = Project.objects.create(name=project_name)
+        default_task = Task.objects.create(name='default')
+        project.tasks.add(default_task)
         department.projects.add(project)
         return JsonResponse({'status': 'success'})
     else:
@@ -97,8 +100,3 @@ def home(request):
 @login_required(login_url='login')
 def about(request):
     return render(request, 'web/about.html', {'title': 'About Us'})
-
-@login_required(login_url='login')
-def create_project(request):
-    
-    return render(request, 'web/create_project.html', {'title': 'Create Project'})
