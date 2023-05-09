@@ -132,11 +132,16 @@
                         <a href="/company/{{company.id}}/department/{{ department.id}}">
                             <button class="button-56" role="button">View Department</button>
                         </a>
+                        <h1></h1>
+                        {% if request.user == department.admin %}
+                            <button class="delete-department" data-department-id="{{ department.id }}">Delete Department</button>
+                        {% endif %}
                     {% endif %}
                 {% empty %}
                     <li>No departments found.</li>
                 {% endfor %}
             </ul>
+                   
             <form id="create-department-form">
                 <label for="department-name">New Department Name:</label>
                 <input type="text" id="department-name" name="department-name">
@@ -144,6 +149,34 @@
             </form> 
             {% block script %}
             <script>
+                const deleteDepartmentButtons = document.querySelectorAll('.delete-department');
+                deleteDepartmentButtons.forEach(button => {
+                    button.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        const departmentId = event.target.dataset.departmentId;
+                        if (confirm('Are you sure you want to delete this department?')) {
+                            fetch(`/delete_department/${departmentId}/`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRFToken': '{{ csrf_token }}',
+                                },
+                            })
+                                .then(response => {
+                                    if (response.ok) {
+                                        // Reload the page to show updated task list
+                                        location.reload();
+                                    } else {
+                                        alert('An error occurred while deleting the task.');
+                                    }
+                                })
+                                .catch(error => {
+                                    console.log(error);
+                                    alert('An error occurred while deleting the task.');
+                                });
+                        }
+                    });
+                });
                 document.getElementById("create-department-form").addEventListener("submit", function(event) {
                     event.preventDefault();
                     let departmentName = document.getElementById("department-name").value;
@@ -168,7 +201,8 @@
                     });
                 });
             </script>
-            {% endblock %}           
+            {% endblock %}
+                    
         </div>
          
             <!-- Optional JavaScript -->
