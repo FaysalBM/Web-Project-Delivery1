@@ -9,7 +9,6 @@ from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from .models import Company, Department, Task, Project, User
 import json
-from django.db.models import Q
 
 @login_required
 def create_company(request):
@@ -60,7 +59,6 @@ def add_user_to_department(request, department_id):
             department.users.add(user)
             messages.success(request, f'{username} has been added to {department.name}.')
         return redirect('department_detail', department_id=department_id, company_id=company_id)
-
 
 @csrf_exempt
 def create_department(request, company_id):
