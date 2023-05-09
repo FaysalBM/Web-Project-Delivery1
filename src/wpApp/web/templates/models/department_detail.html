@@ -138,7 +138,15 @@
                     {% if project.tasks.count > 0 %}
                         {% for task in project.tasks.all %}
                         <ul>
-                            <li>{{ task.name }} <button class="delete-task" data-task-id="{{ task.id }}">Delete Task</button></li>
+                            <li>
+                                {{ task.name }}
+                                <button class="delete-task" data-task-id="{{ task.id }}">Done</button>
+                                <button class="modify-task" data-task-id="{{ task.id }}">Modify Task</button>
+                                <div class="modify-task-input" style="display: block;">
+                                  <input type="text" name="new-task-name" placeholder="Enter new task name">
+                                  <button class="save-modified-task" data-task-id="{{ task.id }}">Save</button>
+                                </div>
+                              </li>
                         </ul>
                         {% endfor %}
                     {% else %}
@@ -285,6 +293,42 @@
                                     console.log(error);
                                     alert('An error occurred while adding the project.');
                                 });
+                        });
+                    });
+                    const saveModifiedTaskButtons = document.querySelectorAll('.save-modified-task');
+                    saveModifiedTaskButtons.forEach(button => {
+                        button.addEventListener('click', (event) => {
+                            event.preventDefault();
+                            const taskId = event.target.dataset.taskId;
+                            const newTaskName = event.target.parentElement.querySelector('[name="new-task-name"]').value;
+
+                            // Check if the new task name is not empty
+                            if (newTaskName.trim() !== '') {
+                                fetch(`/modify_task/${taskId}/`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRFToken': '{{ csrf_token }}',
+                                    },
+                                    body: JSON.stringify({
+                                        'name': newTaskName,
+                                    }),
+                                })
+                                    .then(response => {
+                                        if (response.ok) {
+                                            // Reload the page to show updated task list
+                                            location.reload();
+                                        } else {
+                                            alert('An error occurred while modifying the task.');
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.log(error);
+                                        alert('An error occurred while modifying the task.');
+                                    });
+                            } else {
+                                alert('Please enter a task name.');
+                            }
                         });
                     });
 

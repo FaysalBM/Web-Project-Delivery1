@@ -78,6 +78,20 @@ def create_department(request, company_id):
         return JsonResponse({'status': 'error', 'message': 'Invalid request method.'})
     
 @csrf_exempt
+def modify_task(request, task_id):
+    task = Task.objects.get(id=task_id)
+
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        new_task_name = data['name']
+        task.name = new_task_name
+        task.save()
+
+        return JsonResponse({'success': True})
+
+    return JsonResponse({'success': False})
+
+@csrf_exempt
 def create_project(request, department_id):
     print("Request method:", request.method)
     department = Department.objects.get(id=department_id)
