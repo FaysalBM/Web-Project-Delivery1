@@ -21,7 +21,7 @@ def create_company(request):
         created_by = User.objects.get(pk=created_by_id)
         if not email_com:
             email_com = None
-        company = Company.objects.create(name=name, email_com=email_com, num_workers=num_workers)
+        company = Company.objects.create(name=name, email_com=email_com, num_workers=num_workers, admin=request.user)
         company.workers.add(request.user)
         company.admin = request.user
         messages.success(request, f'{name} has been created.')
@@ -68,11 +68,10 @@ def create_department(request, company_id):
     if request.method == 'POST':
         data = json.loads(request.body)
         department_name = data.get('name', '')
-        department = Department.objects.create(name=department_name)
+        department = Department.objects.create(name=department_name, admin=request.user)
         company.departments.add(department)
         user_id = request.user.id
         user = User.objects.get(pk=user_id)
-        department.admin = request.user
         department.users.add(user)
         return JsonResponse({'status': 'success'})
     else:

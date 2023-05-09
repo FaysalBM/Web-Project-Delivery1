@@ -148,7 +148,7 @@
             {% block script %}
             <script>
                 const deleteDepartmentButtons = document.querySelectorAll('.delete-department');
-                deleteProjectButtons.forEach(button => {
+                deleteDepartmentButtons.forEach(button => {
                     button.addEventListener('click', (event) => {
                         event.preventDefault();
                         const departmentId = event.target.dataset.departmentId;
@@ -198,9 +198,9 @@
                         }
                     });
                 });
-                
             </script>
-            {% endblock %}           
+            {% endblock %}
+                    
         </div>
          
             <!-- Optional JavaScript -->
