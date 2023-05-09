@@ -133,7 +133,9 @@
                             <button class="button-56" role="button">View Department</button>
                         </a>
                         <h1></h1>
-                        <button class="delete-department" data-department-id="{{ department.id }}">Delete Department</button>
+                        {% if request.user == department.admin %}
+                            <button class="delete-department" data-department-id="{{ department.id }}">Delete Department</button>
+                        {% endif %}
                     {% endif %}
                 {% empty %}
                     <li>No departments found.</li>

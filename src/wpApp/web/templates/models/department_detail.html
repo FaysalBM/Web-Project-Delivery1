@@ -148,9 +148,9 @@
                         <input type="text" name="task-name" placeholder="Enter task name">
                         <button type="submit">Add Task</button>
                     </form>
-                    
-                    <button class="delete-project" data-project-id="{{ project.id }}">Delete Project</button>
-                    
+                    {% if request.user == project.admin %}
+                        <button class="delete-project" data-project-id="{{ project.id }}">Delete Project</button>
+                    {% endif %}
                 {% empty %}
                     <p>No projects found for this department.</p>
                 {% endfor %}
