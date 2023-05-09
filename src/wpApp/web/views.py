@@ -17,10 +17,13 @@ def create_company(request):
         name = request.POST.get('name')
         email_com = request.POST.get('email_com', None)
         num_workers = request.POST.get('num_workers')
+        created_by_id = request.user.id
+        created_by = User.objects.get(pk=created_by_id)
         if not email_com:
             email_com = None
         company = Company.objects.create(name=name, email_com=email_com, num_workers=num_workers)
         company.workers.add(request.user)
+        company.admin = request.user
         messages.success(request, f'{name} has been created.')
         return redirect('web-home')
 
@@ -69,6 +72,7 @@ def create_department(request, company_id):
         company.departments.add(department)
         user_id = request.user.id
         user = User.objects.get(pk=user_id)
+        department.admin = request.user
         department.users.add(user)
         return JsonResponse({'status': 'success'})
     else:
@@ -80,9 +84,9 @@ def create_project(request, department_id):
     department = Department.objects.get(id=department_id)
     if request.method == 'POST':
         data = json.loads(request.body)
-        print("Request data:", data)
+        created_by_id = request.user.id
         project_name = data.get('name', '')
-        project = Project.objects.create(name=project_name)
+        project = Project.objects.create(name=project_name, admin=request.user)
         default_task = Task.objects.create(name='default')
         project.tasks.add(default_task)
         department.projects.add(project)
@@ -111,7 +115,46 @@ def delete_task(request, task_id):
     else:
         return JsonResponse({'status': 'error', 'message': 'Invalid request method.'})
     
+    
+@csrf_exempt
+def delete_project(request, project_id):
+    project = Project.objects.get(id=project_id)
+    if project.admin == request.user:
+        if request.method == 'POST':
+            project.delete()
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Invalid request method.'})
+    else: 
+        print("He has no permission to delete this project.")
+        return JsonResponse({'status': 'error', 'message': 'You have no rights to delete this.(You are not the creator).'})
+    
+@csrf_exempt
+def delete_company(request, company_id):
+    company = Company.objects.get(id=company_id)
+    if company.admin == request.user:
+        if request.method == 'POST':
+            company.delete()
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Invalid request method.'})
+    else: 
+        print("He has no permission to delete this project.")
+        return JsonResponse({'status': 'error', 'message': 'You have no rights to delete this.(You are not the creator).'})
 
+@csrf_exempt
+def delete_department(request, department_id):
+    department = Department.objects.get(id=department_id)
+    if department.admin == request.user:
+        if request.method == 'POST':
+            department.delete()
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Invalid request method.'})
+    else: 
+        print("He has no permission to delete this project.")
+        return JsonResponse({'status': 'error', 'message': 'You have no rights to delete this.(You are not the creator).'})
+    
 @csrf_exempt
 def registerPage(request):
     form = CreateUserForm()
