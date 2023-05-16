@@ -212,11 +212,11 @@ def logoutPage(request):
     logout(request)
     return redirect('login_user')
 
-@login_required(login_url='login')
+@login_required(login_url='registration/login')
 def home(request):
     companies = Company.objects.filter(workers=request.user)
     return render(request, 'web/home.html',  {'companies': companies}) #
 
-@login_required(login_url='login')
+@login_required(login_url='registration/login')
 def about(request):
     return render(request, 'web/about.html', {'title': 'About Us'})

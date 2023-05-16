@@ -109,8 +109,7 @@
         </header>
         <div class="container">
             <h1>{{ company.name }}</h1>
-            <h5 style="color: white;"><b>Email: </b> {{ company.email_com }}</h5>
-            <p>Email: {{ company.email_com }}</p>
+            <h5 style="color: rgb(0, 0, 0);"><b>Email: </b> {{ company.email_com }}</h5>
             <h2>Workers:</h2>
             <ul>
             {% for worker in company.workers.all %}

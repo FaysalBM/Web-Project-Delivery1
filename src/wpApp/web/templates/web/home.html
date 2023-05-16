@@ -19,15 +19,15 @@
         .hello-msg{
             font-size: 18px;
             color: azure;
-            margin-right: 20px;
+            margin-right: 50px;
             justify-self: center;
             align-self: center;
         }
         .button-56 {
         align-items: center;
-        background-color: #fee6e3;
+        background-color: #d46c2f;
         border: 2px solid #111;
-        border-radius: 8px;
+        border-radius: 1px;
         box-sizing: border-box;
         color: #111;
         cursor: pointer;
@@ -48,7 +48,7 @@
         }
 
         .button-56:after {
-        background-color: #111;
+        background-color: #686060;
         border-radius: 8px;
         content: "";
         display: block;
@@ -69,6 +69,10 @@
         .button-56:active {
         background-color: #ffdeda;
         outline: 0;
+        }
+        .button-56-enter{
+        background-color:#d46c2f;
+        width: 50%;
         }
 
         .button-56:hover {
@@ -124,7 +128,7 @@
                                 <h5 style="color: white;"><b>Name: </b>{{ company.name }}</h5>
                                 <h5 style="color: white;"><b>Email: </b> {{ company.email_com }}</h5>
                                 <a href="{% url 'company_detail' company.id %}">
-                                    <button class="button-56" role="button">Enter</button>
+                                    <button class="button-56-enter" role="button">Enter</button>
                                 </a>
                                 {% if request.user == company.admin %}
                                     <button class="delete-company" data-company-id="{{ company.id }}">Delete Company</button>
