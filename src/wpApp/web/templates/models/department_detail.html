@@ -108,7 +108,7 @@
         </header>
         <div class="container">
             <h1>Departament de {{ department.name }}</h1>
-            <h2>Users:</h2>
+            <h2>Dept. Workers:</h2>
             <ul>
             {% for user in department.users.all %}
                 <li>{{ user.username }}</li>
@@ -132,43 +132,49 @@
                 {% endfor %}
             </ul>
             <h2>Projects:</h2>
+            <h2>Create a New Project</h2>
+            <form class="add-project-form" data-department-id="{{ department.id }}">
+                <input type="text" name="project-name" placeholder="Enter Project name">
+                <input type="hidden" name="created_by" value="{{ request.user.id }}">
+                <button type="submit">Add Project</button>
+            </form>
             <ul>
                 {% for project in department.projects.all %}
-                    <li>{{ project.name }}</li>
-                    {% if project.tasks.count > 0 %}
-                        {% for task in project.tasks.all %}
-                        <ul>
-                            <li>
-                                {{ task.name }}
-                                <button class="delete-task" data-task-id="{{ task.id }}">Done</button>
-                                <button class="modify-task" data-task-id="{{ task.id }}">Modify Task</button>
-                                <div class="modify-task-input" style="display: block;">
-                                  <input type="text" name="new-task-name" placeholder="Enter new task name">
-                                  <button class="save-modified-task" data-task-id="{{ task.id }}">Save</button>
-                                </div>
-                              </li>
-                        </ul>
-                        {% endfor %}
-                    {% else %}
-                        <p>No tasks found for this project.</p>
-                    {% endif %}
-                    <form class="add-task-form" data-project-id="{{ project.id }}">
-                        <input type="text" name="task-name" placeholder="Enter task name">
-                        <button type="submit">Add Task</button>
-                    </form>
-                    {% if request.user == project.admin %}
-                        <button class="delete-project" data-project-id="{{ project.id }}">Delete Project</button>
-                    {% endif %}
-                {% empty %}
-                    <p>No projects found for this department.</p>
+                    <li>
+                        <div style="background-color: #c7c7c7; margin-top: 10px; width: 50%; padding: 10px; border-width: 5px; border-color: #111; border-style: outset;">
+                            <h4 style="font-weight: 700; color: #111;">{{ project.name }}</h4>
+                            {% if project.tasks.count > 0 %}
+                                {% for task in project.tasks.all %}
+                                <ul>
+                                    <h5 style="font-weight: 600; color: #202020 ;">Tasks:</h5>
+                                    <li style="font-weight: 600; background-color: azure; padding: 2%; width: 90%; border-radius: 10px;">
+                                        {{ task.name }}
+                                        <button style="background-color: springgreen;" class="delete-task" data-task-id="{{ task.id }}">Done</button>
+                                        <div class="modify-task-input" style="display: block;">
+                                        <input type="text" name="new-task-name" placeholder="Enter new task name">
+                                        <button style="background-color: aquamarine;" class="save-modified-task" data-task-id="{{ task.id }}">Save</button>
+                                        </div>
+                                    </li>
+                                </ul>
+                                {% endfor %}
+                            {% else %}
+                                <p>No tasks found for this project.</p>
+                            {% endif %}
+                                <form style="margin: 2%; margin-top: 6%;" class="add-task-form" data-project-id="{{ project.id }}">
+                                    <input type="text" name="task-name" placeholder="Enter task name">
+                                    <button type="submit">Add Task</button>
+                                </form>
+                                {% if request.user == project.admin %}
+                                    <button style="background-color: rgb(255, 129, 129); border-radius: 30px; margin: 1%;" class="delete-project" data-project-id="{{ project.id }}">Delete Project</button>
+                                {% endif %}
+                            {% empty %}
+                                <p>No projects found for this department.</p>
+                        </div>
+                    </li>
                 {% endfor %}
                 {% block content %}
-                <h2>Create a New Project</h2>
-                <form class="add-project-form" data-department-id="{{ department.id }}">
-                    <input type="text" name="project-name" placeholder="Enter Project name">
-                    <input type="hidden" name="created_by" value="{{ request.user.id }}">
-                    <button type="submit">Add Project</button>
-                </form>
+            </ul>
+                
                 {% endblock %}
                 {% block script %}
                 <script>
@@ -334,7 +340,7 @@
 
                 </script>
                 {% endblock %}
-            </ul>
+            
         </div>
             <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
