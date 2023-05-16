@@ -109,8 +109,7 @@
         </header>
         <div class="container">
             <h1>{{ company.name }}</h1>
-            <h5 style="color: white;"><b>Email: </b> {{ company.email_com }}</h5>
-            <p>Email: {{ company.email_com }}</p>
+            <h5 style="color: rgb(0, 0, 0);"><b>Email: </b> {{ company.email_com }}</h5>
             <h2>Workers:</h2>
             <ul>
             {% for worker in company.workers.all %}
@@ -128,14 +127,15 @@
             <ul>
                 {% for department in company.departments.all %}
                     {% if request.user in department.users.all %}
-                        <li>{{ department.name }}</li>
-                        <a href="/company/{{company.id}}/department/{{ department.id}}">
-                            <button class="button-56" role="button">View Department</button>
-                        </a>
-                        <h1></h1>
-                        {% if request.user == department.admin %}
-                            <button class="delete-department" data-department-id="{{ department.id }}">Delete Department</button>
-                        {% endif %}
+                        <div style="background-color: #c7c7c7; margin: 2%; padding: 2%; width: 25%; display: flex; border-radius: 30px;">
+                            <h5 style="align-self: center; justify-self: center;">{{ department.name }}</h5>
+                            <a style="padding: 2%; justify-self: center; align-self: center;" href="/company/{{company.id}}/department/{{ department.id}}">
+                                <button style="background-color: aquamarine; border-color: #2c2c2c; border-radius: 10px; width: fit-content;" role="button">Enter</button>
+                            </a>
+                            {% if request.user == department.admin %}
+                                <button class="delete-department" style="margin: 5%; background-color: #ff5454; border-radius: 30px; border-color: #2c2c2c; " data-department-id="{{ department.id }}">Delete</button>
+                            {% endif %}
+                        </div>
                     {% endif %}
                 {% empty %}
                     <li>No departments found.</li>
