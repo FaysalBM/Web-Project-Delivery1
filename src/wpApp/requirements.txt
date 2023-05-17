@@ -1,3 +1,5 @@
 django==4.1.5
 gunicorn==20.1.0
 requests==2.26.0
+splinter
+behave-django
