@@ -9,6 +9,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from .models import Company, Department, Task, Project, User
 import json
+import requests
 
 @login_required
 def create_company(request):
@@ -125,8 +126,7 @@ def delete_task(request, task_id):
         return JsonResponse({'status': 'success'})
     else:
         return JsonResponse({'status': 'error', 'message': 'Invalid request method.'})
-    
-    
+
 @csrf_exempt
 def delete_project(request, project_id):
     project = Project.objects.get(id=project_id)

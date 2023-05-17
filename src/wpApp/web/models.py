@@ -45,7 +45,6 @@ class Company(models.Model):
     def __unicode__(self):
         return self.name
     
-
 """
 class User(AbstractBaseUser):
     id_user = models.CharField(max_length=255, primary_key=True)
