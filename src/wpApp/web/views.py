@@ -126,20 +126,6 @@ def delete_task(request, task_id):
         return JsonResponse({'status': 'success'})
     else:
         return JsonResponse({'status': 'error', 'message': 'Invalid request method.'})
-    
-def get_countries(request):
-    api_url = 'https://restcountries.com/v3.1/all'  # URL of the REST Countries API
-
-    response = requests.get(api_url)
-    countries_data = response.json()
-
-    countries = []
-    for country_data in countries_data:
-        country_name = country_data['name']['common']
-        countries.append(country_name)
-
-    return JsonResponse({'countries': countries})
-
 
 @csrf_exempt
 def delete_project(request, project_id):

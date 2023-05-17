@@ -23,5 +23,4 @@ urlpatterns = [
     path('company/<int:company_id>/add_user/', views.add_user_to_company, name='add_user_to_company'),
     path('create_company/', views.create_company, name='create_company'),
     path('modify_task/<int:task_id>/', views.modify_task, name='modify_task'),
-    path('get_countries/', views.get_countries, name='get_countries'),
 ]
