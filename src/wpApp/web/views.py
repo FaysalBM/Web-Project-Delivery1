@@ -9,6 +9,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from .models import Company, Department, Task, Project, User
 import json
+import requests
 
 @login_required
 def create_company(request):
@@ -126,7 +127,20 @@ def delete_task(request, task_id):
     else:
         return JsonResponse({'status': 'error', 'message': 'Invalid request method.'})
     
-    
+def get_countries(request):
+    api_url = 'https://restcountries.com/v3.1/all'  # URL of the REST Countries API
+
+    response = requests.get(api_url)
+    countries_data = response.json()
+
+    countries = []
+    for country_data in countries_data:
+        country_name = country_data['name']['common']
+        countries.append(country_name)
+
+    return JsonResponse({'countries': countries})
+
+
 @csrf_exempt
 def delete_project(request, project_id):
     project = Project.objects.get(id=project_id)
