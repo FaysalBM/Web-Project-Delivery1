@@ -4,3 +4,4 @@ requests==2.26.0
 behave==1.2.6
 splinter
 behave-django
+selenium

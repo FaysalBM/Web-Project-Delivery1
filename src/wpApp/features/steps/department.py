@@ -19,10 +19,11 @@ def step_given_company_with_id(context, company_id):
     context.company = company
 
 
-@when('I navigate to the "company_detail" page with ID {company_id}')
+@given('I navigate to the "company_detail" page with ID {company_id}')
 def step_when_navigate_to_company_detail(context, company_id):
     url = reverse('company_detail', args=[company_id])
     context.response = context.browser.get(url)
+
 
 @when('I enter "{department_name}" into the department creation form')
 def step_when_enter_department_name(context, department_name):
