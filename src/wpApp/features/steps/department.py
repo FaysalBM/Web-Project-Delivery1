@@ -2,10 +2,10 @@ from behave import given, when, then
 from django.test import Client
 from django.urls import reverse
 
-@given('I navigate to the "company" page')
+@given('I navigate to the "company_detail" page')
 def step_nav_to_page(context):
     context.browser = Client()
-    context.response = context.browser.get(reverse('company'))
+    context.response = context.browser.get(reverse('company_detail'))
 
 @when('I enter "{department_name}" into the department creation form')
 def step_enter_department_details(context, department_name):
