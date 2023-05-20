@@ -22,3 +22,4 @@ The "Delete" function is also tested there.
 - faysalbadaoui
 - admin
 - pepito
+- testuser1
