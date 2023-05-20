@@ -155,27 +155,27 @@
             <form method="POST" action="{% url 'create_company' %}">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="name">Name:</label>
+                    <label style="font-weight: 700;" for="name">Name:</label>
                     <input type="text" class="form-control" id="name" name="name" required>
                 </div>
                 <div class="form-group">
-                    <label for="email_com">Email:</label>
+                    <label style="font-weight: 700;" for="email_com">Email:</label>
                     <input type="email" class="form-control" name="email_com" required>
                 </div>
                 <div class="form-group">
-                    <label for="num_workers">Number of Workers:</label>
+                    <label style="font-weight: 700;" for="num_workers">Number of Workers:</label>
                     <input type="number" class="form-control" id="num_workers" name="num_workers" min="0" required>
                 </div>
                 <div class="form-group">
-                    <label for="city">City:</label>
+                    <label style="font-weight: 700;" for="city">City:</label>
                     <input type="text" class="form-control" id="id_city" name="city" required>
                 </div>
                 <div class="form-group">
-                    <label for="stateOrProvince">State/Province:</label>
+                    <label style="font-weight: 700;" for="stateOrProvince">State/Province:</label>
                     <input type="text" class="form-control" id="id_stateOrProvince" name="stateOrProvince">
                 </div>
                 <div class="form-group">
-                    <label for="country">Country:</label>
+                    <label style="font-weight: 700;" for="country">Country:</label>
                     <input type="text" class="form-control" id="id_country" name="country">
                 </div>
                 <button type="submit" class="btn btn-primary">Create Company</button>
