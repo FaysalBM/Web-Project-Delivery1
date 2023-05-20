@@ -15,3 +15,7 @@ The cases are done inside the feature files and can be seen they're implementati
 The test we have developed have the purpose of emulating several functions of our application, therefore we have made them end to end.
 Those tests create users, projects and entities.
 The "Delete" function is also tested there.
+## Users available to test
+- faysalbadaoui
+- admin
+- pepito
