@@ -8,6 +8,9 @@
 - Ability to delete model entities(only the users that created them).
 - Added a API to acced Cities information to create the Company.
 - Added testing (Unit testing and behave testing).
+## Behave Testing
+The tests that are done by behave, test all the actions a user can do. From registering and logging In, till creating models.
+## Unit Testing
 The test we have developed have the purpose of emulating several functions of our application, therefore we have made them end to end.
 Those tests create users, projects and entities.
 The "Delete" function is also tested there.
