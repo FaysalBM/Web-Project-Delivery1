@@ -1,9 +1,10 @@
 from behave import given, when, then
 from django.urls import reverse
-from web.models import Department, Project, Task
+from web.models import Department, Project, Task, User
 
 @given('there is a department with ID {department_id}')
 def step_given_department_with_id(context, department_id):
+    context.user = User.objects.create(username='user')
     department = Department.objects.create(name="department_name", admin=context.user)
     department.admin = context.user
     department.save()
@@ -11,7 +12,7 @@ def step_given_department_with_id(context, department_id):
 
 @when('I navigate to the "department_detail" page with ID {department_id}')
 def step_when_navigate_to_department_detail(context, department_id):
-    url = reverse('department_detail', args=[department_id])
+    url = reverse('department_detail', args=[1,department_id])
     context.response = context.browser.visit(url)
 
 @when('I create a project with name "{project_name}"')
