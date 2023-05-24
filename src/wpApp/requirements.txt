@@ -5,3 +5,5 @@ behave==1.2.6
 splinter
 behave-django
 selenium
+rdflib
+rdflib-jsonld
