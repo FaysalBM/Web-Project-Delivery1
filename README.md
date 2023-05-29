@@ -2,15 +2,9 @@
 ## Implementation
 - Added span elements for the Company Details(home.html) using details of schema.org/LegalService
 
-## RDFA MARKUP WITH GOOGLE
+## RDFA MARKUP WITH GOOGLE - Results
+![image](https://github.com/faysalbadaoui/Web-Project/assets/73638078/917c195b-df1b-4472-b740-f7750cb00fdf)
 
-## Behave Testing
-The tests that are done by behave, test all the actions a user can do. From registering and logging In, till creating models.
-The cases are done inside the feature files and can be seen they're implementation on the steps folder.
-## Unit Testing
-The test we have developed have the purpose of emulating several functions of our application, therefore we have made them end to end.
-Those tests create users, projects and entities.
-The "Delete" function is also tested there.
 ## Grade distribution
 - Faysal Badaoui Mahdad: 40%
 - Others: 20%
