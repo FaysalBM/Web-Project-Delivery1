@@ -123,33 +123,37 @@
             <table>
                 <tbody>
                     {% for company in companies %}
-                    <span vocab="https://schema.org/" typeof="Company">
-                        <tr>
-                            <div style="width: 200;
-                            height: 200;
-                            background-color:grey;
-                            border-radius: 10px;
-                            border-color: black;
-                            border-style: solid;
-                            border-width: 3px;
-                            margin: 5px;
-                            padding: 20px;">
-                            <span property="name"> 
-                                <h5 style="color: white;"><b>Name: </b>{{ company.name }}</h5>
-                            </span>
-                            <span property="email_com">
-                                <h5 style="color: white;"><b>Email: </b> {{ company.email_com }}</h5>
-                            </span>
-                                <a href="{% url 'company_detail' company.id %}">
-                                    <button class="button-56-enter" role="button">Enter</button>
-                                </a>
-                                {% if request.user == company.admin %}
-                                    <button class="delete-company" data-company-id="{{ company.id }}">Delete Company</button>
-                                {% endif %}
-                            </div>
-                            
-                        </tr>
-                    </span>
+                    
+                    <tr rel="Company"">
+                        <div style="width: 200;
+                        height: 200;
+                        background-color:grey;
+                        border-radius: 10px;
+                        border-color: black;
+                        border-style: solid;
+                        border-width: 3px;
+                        margin: 5px;
+                        padding: 20px;"  itemscope itemtype="http://schema.org/LegalService">
+                        <h5 style="color: white;"><b>Name: </b><span itemprop="name">{{ company.name }}</span></h5>
+                    
+                        <h5 style="color: white;"><b>Email: </b><span itemprop="email">{{ company.email_com }}</span></h5>
+
+                        <a href="{% url 'company_detail' company.id %}" itemprop="url">
+                            <button class="button-56-enter" role="button">Enter</button>
+                        </a>
+                        {% if request.user == company.admin %}
+                            <button class="delete-company" data-company-id="{{ company.id }}">Delete Company</button>
+                        {% endif %}
+                        <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                            <span itemprop="addressLocality">"Country"</span>,
+                            <span itemprop="addressRegion">""</span>,
+                            <span itemprop="addressCountry">""</span>
+                        </div>
+
+                        </div>
+                       
+                    </tr>
+
                     {% empty %}
                         <tr>
                             <td colspan="3">No companies found.</td>
