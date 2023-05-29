@@ -7,7 +7,7 @@
 
 ## Grade distribution
 - Faysal Badaoui Mahdad: 45%
-- Andrés Bernárdez Matalobos: 45%
+- Andrés Bernardez Matalobos: 45%
 - Others: 5%
 ## Superuser info
 - Username: admin
