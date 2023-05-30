@@ -4,6 +4,7 @@
 
 ## RDFA MARKUP WITH GOOGLE - Results
 ![image](https://github.com/faysalbadaoui/Web-Project/assets/73638078/917c195b-df1b-4472-b740-f7750cb00fdf)
+![image](https://github.com/faysalbadaoui/Web-Project/assets/73638078/99617e45-a1ce-41a2-b5d2-e69920e00e19)
 
 ## Grade distribution
 - Faysal Badaoui Mahdad: 45%
