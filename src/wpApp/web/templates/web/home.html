@@ -144,12 +144,6 @@
                         {% if request.user == company.admin %}
                             <button class="delete-company" data-company-id="{{ company.id }}">Delete Company</button>
                         {% endif %}
-                        <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-                            <span itemprop="addressLocality">"Country"</span>,
-                            <span itemprop="addressRegion">""</span>,
-                            <span itemprop="addressCountry">""</span>
-                        </div>
-
                         </div>
                        
                     </tr>

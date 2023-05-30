@@ -108,8 +108,11 @@
             </nav>
         </header>
         <div class="container">
-            <h1>{{ company.name }}</h1>
+            <span vocab="https://schema.org/" typeof="LegalService">
+            <span property="name"> <h1>{{ company.name }}</h1></span>
+            <span property="email">
             <h5 style="color: rgb(0, 0, 0);"><b>Email: </b> {{ company.email_com }}</h5>
+            </span>
             <h2>Workers:</h2>
             <ul>
             {% for worker in company.workers.all %}
@@ -128,7 +131,9 @@
                 {% for department in company.departments.all %}
                     {% if request.user in department.users.all %}
                         <div style="background-color: #c7c7c7; margin: 2%; padding: 2%; width: 25%; display: flex; border-radius: 30px;">
+                            <span property="department">
                             <h5 style="align-self: center; justify-self: center;">{{ department.name }}</h5>
+                            </span>
                             <a style="padding: 2%; justify-self: center; align-self: center;" href="/company/{{company.id}}/department/{{ department.id}}">
                                 <button style="background-color: aquamarine; border-color: #2c2c2c; border-radius: 10px; width: fit-content;" role="button">Enter</button>
                             </a>
@@ -141,7 +146,7 @@
                     <li>No departments found.</li>
                 {% endfor %}
             </ul>
-                   
+            </span>
             <form id="create-department-form">
                 <label for="department-name">New Department Name:</label>
                 <input type="text" id="department-name" name="department-name">
