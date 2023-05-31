@@ -7,9 +7,9 @@
 ![image](https://github.com/faysalbadaoui/Web-Project/assets/73638078/99617e45-a1ce-41a2-b5d2-e69920e00e19)
 
 ## Grade distribution
-- Faysal Badaoui Mahdad: 45%
-- Andrés Bernardez Matalobos: 45%
-- Others: 5%
+- Faysal Badaoui Mahdad: 30%
+- Andrés Bernardez Matalobos: 30%
+- Others: 20%
 ## Superuser info
 - Username: admin
 - Password: admin
