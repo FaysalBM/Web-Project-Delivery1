@@ -16,13 +16,20 @@ def create_company(request):
         name = request.POST.get('name')
         email_com = request.POST.get('email_com', None)
         num_workers = request.POST.get('num_workers')
+        city = request.POST.get('city')
+        state = request.POST.get('stateOrProvince')
+        country = request.POST.get('country')
         created_by_id = request.user.id
         created_by = User.objects.get(pk=created_by_id)
         if not email_com:
             email_com = None
-        company = Company.objects.create(name=name, email_com=email_com, num_workers=num_workers, admin=request.user)
+        company = Company.objects.create(name=name, email_com=email_com, num_workers=num_workers, admin=request.user, city=city, state=state, country=country)
         company.workers.add(request.user)
         company.admin = request.user
+        company.city = city
+        company.state = state
+        company.country = country
+
         messages.success(request, f'{name} has been created.')
         return redirect('web-home')
 

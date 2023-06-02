@@ -39,6 +39,9 @@ class Company(models.Model):
     email_com = models.EmailField(max_length=255, unique=True, default='defaultEmail')
     num_workers = models.IntegerField(default=0)
     departments = models.ManyToManyField(Department)
+    city = models.CharField(max_length=256, unique=False, default='defaultCity')
+    state = models.CharField(max_length=256, unique=False, default='defaultState' )
+    country = models.CharField(max_length=256, unique=False, default='defaultCountry')
     admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_companies", default=User.objects.first().pk)
     workers = models.ManyToManyField(User, related_name="companies")
 
