@@ -9,7 +9,8 @@
 ## Grade distribution
 - Faysal Badaoui Mahdad: 30%
 - Andrés Bernardez Matalobos: 30%
-- Others: 20%
+- Marc Bustos Garcia
+- Miquel Batlle Gispert
 ## Superuser info
 - Username: admin
 - Password: admin
